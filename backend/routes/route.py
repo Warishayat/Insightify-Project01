@@ -12,6 +12,7 @@ from langchain_pinecone import Pinecone
 from services.pinecone_init import create_pinecone_index
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from services.excel import preprocessing_func
+import uvicorn
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -197,3 +198,7 @@ async def retrieval(query: str = Form(...)):
     retriever = retrieved_vector.as_retriever(search_kwargs={"k": 1})
     result = retrieval_chain(query,retriever)  # Perform retrieval
     return {"message": "Retrieval processed successfully", "retriever": result}
+
+# Run the FastAPI server
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)
