@@ -197,3 +197,6 @@ async def retrieval(query: str = Form(...)):
     retriever = retrieved_vector.as_retriever(search_kwargs={"k": 1})
     result = retrieval_chain(query,retriever)  # Perform retrieval
     return {"message": "Retrieval processed successfully", "retriever": result}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=10000)
